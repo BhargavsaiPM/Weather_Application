@@ -28,6 +28,15 @@
 
 - Use the workspace TypeScript version and restart the TS server. VS Code settings included in `.vscode/settings.json` to point to the workspace TS SDK.
 
+## Environment variables
+
+- To prefill the API key at build time (public):
+  - Locally, create `.env.local` with:
+    ```
+    VITE_OPENWEATHER_API_KEY=YOUR_KEY
+    ```
+  - On Render/Vercel/Netlify, add the same key in project settings and redeploy.
+
 ## Notes
 
 - Image alt text and metadata added for `src/assets/weather-hero.jpg`:
