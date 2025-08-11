@@ -16,18 +16,17 @@ export const ApiKeyInput = ({ onApiKeyChange, className }: ApiKeyInputProps) => 
     const [showApiKey, setShowApiKey] = useState(false);
 
     useEffect(() => {
-        // Load API key from localStorage on component mount, or use default
+        // Load API key from localStorage on component mount, or use env default if provided
         const savedApiKey = localStorage.getItem("openweather_api_key");
-        const defaultApiKey = "60a76a7a3beca3d73887d3e2bd28853f";
+        const envApiKey = (import.meta as any).env?.VITE_OPENWEATHER_API_KEY as string | undefined;
 
         if (savedApiKey) {
             setApiKey(savedApiKey);
             onApiKeyChange(savedApiKey);
-        } else {
-            // Auto-populate with the provided API key
-            setApiKey(defaultApiKey);
-            localStorage.setItem("openweather_api_key", defaultApiKey);
-            onApiKeyChange(defaultApiKey);
+        } else if (envApiKey && envApiKey.trim().length > 0) {
+            setApiKey(envApiKey);
+            localStorage.setItem("openweather_api_key", envApiKey);
+            onApiKeyChange(envApiKey);
         }
     }, [onApiKeyChange]);
 
